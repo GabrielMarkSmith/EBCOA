@@ -1,9 +1,9 @@
-# Agent Workspace & Development Directive: P2P Event Escrow Platform
+# EBCOA Development Directive & System Architecture (`CLAUDE.md`)
 
 ## 1. System Overview & Strategic Objective
-The objective is to build a high-utility, hyper-lean Web2.5 (Hybrid) Peer-to-Peer event/sports wagering application deployed on an Ethereum Layer 2 (L2) network. 
+The objective is to build **EBCOA** ("Event Based Contracts On Anything"), a high-utility, hyper-lean Web2.5 (Hybrid) Peer-to-Peer event and sports wagering application deployed on an Ethereum Layer 2 (L2) network. 
 
-To bypass multi-million dollar regulatory hurdles (FinCEN MSB registration, 50-state Money Transmitter Licenses), the platform adopts a strict **"Shield Architecture"** where the platform company never has custody of digital assets, never holds user private keys, and never touches the traditional fiat flow of funds. The platform company acts strictly as a **Software UI Provider** and a **First-Party Oracle**.
+To bypass regulatory hurdles (FinCEN MSB registration, 50-state Money Transmitter Licenses), EBCOA adopts a strict **"Shield Architecture"** where the platform company never has custody of digital assets, never holds user private keys, and never touches traditional fiat flow of funds. The platform company acts strictly as a **Software UI Provider** and a **First-Party Oracle**.
 
 ---
 
@@ -21,17 +21,17 @@ To bypass multi-million dollar regulatory hurdles (FinCEN MSB registration, 50-s
 ### Tier 3: Core Blockchain Layer (The Infrastructure Shield)
 * **Network Target:** Ethereum Layer 2 (Primary Target: `Base Mainnet`).
 * **Supported Assets:** Stablecoins only. Rigidly limited to Native L2 **USDC** and **USDT**. 
-* **Gas Architecture:** Native L2 Account Abstraction (ERC-4337). The platform company will host a Paymaster balance via the Coinbase SDK to sponsor user gas. User gas fees must show as `$0.00` in the UI.
+* **Gas Architecture:** Native L2 Account Abstraction (ERC-4337). EBCOA will host a Paymaster balance via the Coinbase SDK to sponsor user gas. User gas fees must show as **$0.00** in the UI.
 
 ### Tier 4: The Oracle & Application Layer
-* **Data Resolution:** Centralized First-Party Oracle model. The platform company runs a secure, stateful backend service that polls commercial sports APIs, validates cryptographic integrity, protects against stale data manipulation, and signs resolution vectors.
+* **Data Resolution:** Centralized First-Party Oracle model. The EBCOA backend runs a secure, stateful service that polls commercial sports/event APIs, validates data integrity, protects against stale data manipulation, and signs resolution vectors.
 * **Monetization Engine:** Hybrid Platform Fee Model built directly into the immutable settlement smart contract: **2% platform fee** on total pools, enforced by a **$0.01 absolute minimum surcharge** to insulate the platform against micro-wager gas deficits.
 
 ---
 
 ## 3. Core Technical Blueprints
 
-### 3.1 Smart Contract: Single Master Storage Model (`WagerManager.sol`)
+### 3.1 Smart Contract: Single Master Storage Model (`EbcoaManager.sol`)
 Do not use a dynamic contract factory clone model to avoid excessive deployment gas. Use a single master contract storing wagers inside an optimized tracking map.
 
 ```solidity
@@ -43,7 +43,7 @@ interface IERC20 {
     function transferFrom(address from, address to, uint256 value) external returns (bool);
 }
 
-contract WagerManager {
+contract EbcoaManager {
     address public platformAdmin;
     address public oracleServerAddress;
     address public treasuryWallet;
